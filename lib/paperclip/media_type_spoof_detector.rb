@@ -10,14 +10,22 @@ module Paperclip
       @content_type = content_type || ""
     end
 
-    def spoofed?
-      Paperclip.log("file: #{@file}, \n content_type: #{@content_type}, \n name: #{@name}, \n has_name?: #{has_name?}, \n extension: #{File.extname(@name.to_s.downcase).sub(/^\./, '').to_sym}, \n has_extension?: #{has_extension?}, \n supplied_media_type: #{supplied_media_type}, \n supplied_type_mismatch?: #{supplied_type_mismatch?}, \n calculated_media_type: #{calculated_media_type} \n calculated_type_mismatch?: #{calculated_type_mismatch?}, \n mapped_content_type: #{mapped_content_type}, \n mapping_override_mismatch?: #{mapping_override_mismatch?}")
+    def spoofed?      
       if has_name? && has_extension? && media_type_mismatch? && mapping_override_mismatch?
-        Paperclip.log("Spoofed is true!!")
+        Paperclip.log("Media file type is spoofed!")
+        Paperclip.log("File: #{@file} \n
+                       Content type: #{@content_type} \n
+                       Name: #{@name} \n
+                       Extension: #{File.extname(@name.to_s.downcase).sub(/^\./, '').to_sym} \n
+                       Supplied media type: #{supplied_media_type} \n
+                       Supplied type mismatch?: #{supplied_type_mismatch?} \n
+                       Calculated media type: #{calculated_media_type} \n
+                       Calculated type mismatch?: #{calculated_type_mismatch?} \n
+                       Mapped content type: #{mapped_content_type} \n
+                       Mapping override mismatch?: #{mapping_override_mismatch?}")
         #Paperclip.log("Content Type Spoof: Filename #{File.basename(@name)} (#{supplied_content_type} from Headers, #{content_types_from_name.map(&:to_s)} from Extension), content type discovered from file command: #{calculated_content_type}. See documentation to allow this combination.")
         true
-      else
-        Paperclip.log("Spoofed is false!!")
+      else        
         false
       end
     end
