@@ -66,7 +66,8 @@ module Paperclip
     end
 
     def calculated_content_type
-      @calculated_content_type ||= type_from_file_command.chomp
+      # GB: @calculated_content_type ||= type_from_file_command.chomp
+      @calculated_content_type ||= type_from_detector.chomp
     end
 
     def calculated_media_type
@@ -77,6 +78,15 @@ module Paperclip
       begin
         Paperclip.run("file", "-b --mime :file", :file => @file.path).split(/[:;]\s+/).first
       rescue Cocaine::CommandLineError
+        ""
+      end
+    end
+
+    # GB: This is an alternative content type detection method that I added
+    def type_from_detector
+      begin
+        ContentTypeDetector.new(@file.path).detect.split(/[:;]\s+/).first
+      rescue Exception => e
         ""
       end
     end
