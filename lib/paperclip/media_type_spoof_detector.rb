@@ -12,6 +12,7 @@ module Paperclip
 
     def spoofed?      
       if has_name? && has_extension? && media_type_mismatch? && mapping_override_mismatch?
+        # GB: I added some better logging here:
         Paperclip.log("Media file type is spoofed!")
         Paperclip.log("File: #{@file} \n
                        Content type: #{@content_type} \n

@@ -14,7 +14,8 @@ module Paperclip
     private
 
     def download_content
-      open(@target)
+      # GB: Allow HTTP => HTTPS redirections. Uses open_uri_redirections gem.
+      open(@target, allow_redirections: :safe)
     end
 
     def cache_current_values

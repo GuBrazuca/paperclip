@@ -12,4 +12,5 @@ group :development, :test do
   gem 'mime-types', '~> 1.16'
   gem 'builder'
   gem 'rubocop', require: false
+  gem 'open_uri_redirections'  # GB: Added gem to allow HTTP => HTTPS redirections.
 end
