@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'open_uri_redirections' # GB: Allow HTTP => HTTPS redirections.
 
 module Paperclip
   class UriAdapter < AbstractAdapter
