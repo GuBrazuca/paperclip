@@ -42,7 +42,10 @@ module Paperclip
     end
 
     def media_type_mismatch?
-      supplied_type_mismatch? || calculated_type_mismatch?
+      # supplied_type_mismatch? || calculated_type_mismatch?
+      # GB: I'll ignore supplied_type_mismatch? and rely solely on calculated_type_mismatch?...
+
+      calculated_type_mismatch?
     end
 
     def supplied_type_mismatch?
@@ -94,7 +97,7 @@ module Paperclip
     # GB: This is an alternative content type detection method that I added
     def type_from_detector
       begin
-        ContentTypeDetector.new(@file.path).detect.split(/[:;]\s+/).first
+        ContentTypeDetector.new(@file.path).detect
       rescue Exception => e
         ""
       end
